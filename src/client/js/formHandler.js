@@ -8,8 +8,8 @@ function handleSubmit(event) {
 		console.log("::: Data Posted :::")
         // check what text was put into the form field
 		console.log("::: Form Submitted :::")
-        Client.postData('http://localhost:8080/sentiment', {url: formText}).then(function (data) {
-          Client.postData("http://localhost:8080/add", {
+        Client.postData('http://localhost:8081/sentiment', {url: formText}).then(function (data) {
+          Client.postData("http://localhost:8081/add", {
 			  url: formText,
 			  text: data.text,
 			  polarity: data.polarity,
@@ -24,7 +24,7 @@ function handleSubmit(event) {
 
 //Update the UI Elements
 const updateUI = async () => {
-    const request = await fetch("http://localhost:8080/all");
+    const request = await fetch("http://localhost:8081/all");
     try {
 		  const data_analyse = await request.json();
 		  document.getElementById("url").innerHTML = `URL: ${data_analyse.url}`
