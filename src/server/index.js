@@ -32,3 +32,43 @@ app.listen(8081, function () {
 app.get('/test', function (req, res) {
     res.send(mockAPIResponse)
 })
+
+// Setup empty JS object to act as endpoint for all routes
+projectData = {};
+
+app.post('/sentiment', sendData);
+
+function sendData (req, res) {
+    console.log(req);
+    const url = req.body.url
+    console.log(url);
+    aylienApi.sentiment({
+        url: url,
+        mode: 'document'
+    },
+    function(error, response) {
+        if (error) {
+            console.log(error)
+        } else {
+            res.send(response)
+        }
+    }
+    )
+}
+
+app.post("/add", (req, res) => {
+    console.log(req.body);
+  
+    projectData.text = req.body.text;
+    projectData.subjectivity = req.body.subjectivity;
+    projectData.polarity = req.body.polarity;
+    projectData.polarity_confidence = (req.body.polarity_confidence*100);
+  
+    res.send(projectData);
+    console.log(projectData);
+  });
+
+  app.get("/all", (req, res) => {
+    res.send(projectData);
+    console.log(projectData);
+  });
