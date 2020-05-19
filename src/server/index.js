@@ -30,7 +30,7 @@ app.listen(8081, function () {
 })
 
 app.get('/test', function (req, res) {
-    res.send(mockAPIResponse)
+    res.send(mockAPIResponse);
 })
 
 // Setup empty JS object to act as endpoint for all routes
@@ -38,11 +38,13 @@ projectData = {};
 
 app.post('/sentiment', sendData);
 
+
 function sendData (req, res) {
     console.log(req);
     const url = req.body.url
     console.log(url);
-    aylienApi.sentiment({
+	//aylienApi
+    textapi.sentiment({
         url: url,
         mode: 'document'
     },
